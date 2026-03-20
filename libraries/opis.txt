@@ -1,0 +1,29 @@
+Zależnośc:
+Programy wykorzystujące bibliotekę dynamiczną wymagają obecności odpowiedniej wersji biblioteki w systemie.
+Programy wykorzystujące biblotekę statyczną zawierają już ją w sobie,
+więc nie powinna wydarzyć się sytuacja,
+że program nie działa przez zewnętrzne zależności.
+
+Waga plików:
+Jak widać w załączonym wyniku zapytania "ls -l -R" waga pliku wykonywalnego main dla dynamicznej biblioteki jest znacznie mniejsza.
+Wynika to z faktu, że biblioteki statyczne załączane są przez linker do pliku wykonywalnego,
+gdzie dla bibliotek dynamicznych zapisywana jest jedynie referencja do pliku wykonywalnego biblioteki.
+Sama bibliotek dynamiczna jest załączana dopiero przy uruchomieniu programu.
+
+./dynamic_lib:
+total 48
+-rwxrwxr-x 1 cyprian cyprian 15632 mar 11 20:35 libstack.so
+-rwxrwxr-x 1 cyprian cyprian 16160 mar 11 20:35 main
+-rw-rw-r-- 1 cyprian cyprian   767 mar 11 20:30 main.c
+-rw-rw-r-- 1 cyprian cyprian   745 mar 11 19:55 stack.c
+-rw-rw-r-- 1 cyprian cyprian   366 mar 11 19:55 stack.h
+-rw-rw-r-- 1 cyprian cyprian  1968 mar 11 20:34 stack.o
+
+./static_lib:
+total 900
+-rw-rw-r-- 1 cyprian cyprian   2136 mar 11 20:42 libstack.a
+-rwxrwxr-x 1 cyprian cyprian 900568 mar 11 20:43 main
+-rw-rw-r-- 1 cyprian cyprian    767 mar 11 20:04 main.c
+-rw-rw-r-- 1 cyprian cyprian    745 mar 11 19:57 stack.c
+-rw-rw-r-- 1 cyprian cyprian    366 mar 11 19:57 stack.h
+-rw-rw-r-- 1 cyprian cyprian   1968 mar 11 20:42 stack.o

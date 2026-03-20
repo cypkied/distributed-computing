@@ -1,0 +1,1 @@
+Stos w tej implementacji jest struktur¹ dynamiczn¹, poniewaŸ alokuje i zwalnia pamiêæ w zale¿noœci od iloœci przechowywanych danych.

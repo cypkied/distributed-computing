@@ -1,0 +1,42 @@
+Skrótowy opis działania programu:
+    - Program wczytuje parametr określający liczbę macierzy
+    - W pętli generuje macierz kwadratową o wymiarze 100, a następnie podnosi ją do potęgi
+    - Obie macierz są zapisywane do pliku
+
+main_processes:
+    - wymaga on dla każdego procesu osobno wyznaczenie ziarna generowania z przesunięciem,
+      ponieważ oba procesy liczyłyby te same macierze, wynika to z faktu,
+      że procesy są na start kopią procesu macierzystego
+    - wykorzystuje fork() do utworzenia procesu
+    - wykorzystuje if by proces wykonywał tylko swoje zadanie
+    - exit kończy działanie procesu
+    - wait oczekuje na koniec pracy procesu.
+      wait czeka na zakończenie dowolnego procesu,
+      ponieważ w tym kontekście nie jest ważne,
+      który się skończy pierwszy
+
+Procesy sprawdzają się przede wszystkim do obliczania niezależnych bytów,
+takich jak oddzielne macierze w tym programie,
+ponieważ mogą działać równolegle i skracać czas obliczeń,
+w tym wypadku około dwukrotnie.
+
+cyprian@cyprian-Nitro-AN517-55:~/PrzetwarzanieRozproszone/lab3$ time ./main_processes 1000
+
+real	0m1,913s
+user	0m3,706s
+sys	0m0,098s
+cyprian@cyprian-Nitro-AN517-55:~/PrzetwarzanieRozproszone/lab3$ time ./main_single 1000
+
+real	0m3,651s
+user	0m3,555s
+sys	0m0,096s
+cyprian@cyprian-Nitro-AN517-55:~/PrzetwarzanieRozproszone/lab3$ time ./main_processes 10000
+
+real	0m18,953s
+user	0m36,992s
+sys	0m0,895s
+cyprian@cyprian-Nitro-AN517-55:~/PrzetwarzanieRozproszone/lab3$ time ./main_single 10000
+
+real	0m37,239s
+user	0m36,192s
+sys	0m1,041s
